@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        form {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #007bff;
+            color: white;
+            margin-top: 2rem;
+        }
+    </style>
+    <script>
+        function actualizarCampos() {
+            const categoria = document.querySelector('select[name="CATEGORIA"]').value;
+            const fechaDecadField = document.getElementById('fechaDecad');
+            const contenidoField = document.getElementById('contenido');
+            const numeroSerieField = document.getElementById('numeroSerie');
+
+            // Ocultar todos los campos al inicio
+            fechaDecadField.style.display = 'none';
+            contenidoField.style.display = 'none';
+            numeroSerieField.style.display = 'none';
+
+            // Mostrar campos según la categoría seleccionada
+            if (categoria === 'bebidas' || categoria === 'comida') {
+                fechaDecadField.style.display = 'block';
+                if (categoria === 'bebidas') {
+                    contenidoField.style.display = 'block';
+                }
+            } else if (categoria === 'electronica' || categoria === 'papeleria') {
+                numeroSerieField.style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Gestión de Productos</h1>
+    </header>
+    <main>
+        <h2>Registrar Producto</h2>
+        <form action="procesar_datos.php" method="post">
+            <label for="CATEGORIA">Categoría:</label>
+            <select name="CATEGORIA" required onchange="actualizarCampos()">
+                <option value="">-- Seleccionar Categoría --</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="comida">Comida</option>
+                <option value="electronica">Electrónica</option>
+                <option value="papeleria">Papelería</option>
+            </select>
+
+            <div id="contenido" style="display: none;">
+                <label for="CONTENIDO">Contenido (solo para bebidas):</label>
+                <input type="text" name="CONTENIDO">
+            </div>
+
+            <div id="fechaDecad" style="display: none;">
+                <label for="FECHADECAD">Fecha de Caducidad (solo para bebida y comida):</label>
+                <input type="date" name="FECHADECAD">
+            </div>
+
+            <div id="numeroSerie" style="display: none;">
+                <label for="NUMEROSERIE">Número de Serie (solo para electrónica y papelería):</label>
+                <input type="text" name="NUMEROSERIE">
+            </div>
+
+            <label for="PRODUCTO">Producto:</label>
+            <input type="text" name="PRODUCTO" required>
+
+            <label for="PRECIO">Precio:</label>
+            <input type="number" name="PRECIO" step="0.01" required>
+
+            <label for="EXISTENCIA">Existencia:</label>
+            <input type="number" name="EXISTENCIA" required>
+
+            <button type="submit">Registrar</button>
+        </form>
+
+        <!-- Formulario para consultar productos -->
+        <h2>Consultar Productos</h2>
+        <form action="consultar_datos.php" method="get">
+            <label for="CATEGORIA">Selecciona Categoría:</label>
+            <select name="CATEGORIA">
+                <option value="">-- Seleccionar Categoría --</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="comida">Comida</option>
+                <option value="electronica">Electrónica</option>
+                <option value="papeleria">Papelería</option>
+            </select>
+
+            <label for="ID">ID del Producto:</label>
+            <input type="number" name="ID">
+
+            <button type="submit">Consultar</button>
+        </form>
+
+        <script>
+            window.onload = function() {
+                // Llamar a la función de actualización de campos al cargar la página
+                actualizarCamposModificar();
+            };
+        
+            function actualizarCamposModificar() {
+                const categoria = document.querySelector('form[action="modificar_datos.php"] select[name="CATEGORIA"]').value;
+                const fechaDecadField = document.getElementById('modificarFechaDecad');
+                const contenidoField = document.getElementById('modificarContenido');
+                const numeroSerieField = document.getElementById('modificarNumeroSerie');
+        
+                // Ocultar todos los campos al inicio
+                fechaDecadField.style.display = 'none';
+                contenidoField.style.display = 'none';
+                numeroSerieField.style.display = 'none';
+        
+                // Mostrar campos según la categoría seleccionada
+                if (categoria === 'bebidas' || categoria === 'comida') {
+                    fechaDecadField.style.display = 'block';
+                    if (categoria === 'bebidas') {
+                        contenidoField.style.display = 'block';
+                    }
+                } else if (categoria === 'electronica' || categoria === 'papeleria') {
+                    numeroSerieField.style.display = 'block';
+                }
+            }
+        </script>
+        
+        <!-- Formulario para modificar productos -->
+        <h2>Modificar Producto</h2>
+        <form action="modificar_datos.php" method="post">
+            
+            <label for="CATEGORIA">Selecciona Categoría:</label>
+            <select name="CATEGORIA" required onchange="actualizarCamposModificar()">
+                <option value="">-- Seleccionar Categoría --</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="comida">Comida</option>
+                <option value="electronica">Electrónica</option>
+                <option value="papeleria">Papelería</option>
+            </select>
+        
+            <label for="ID">ID del Producto:</label>
+            <input type="number" name="ID" required>
+        
+            <label for="NUEVO_PRODUCTO">Nuevo Nombre:</label>
+            <input type="text" name="NUEVO_PRODUCTO">
+        
+            <label for="NUEVO_PRECIO">Nuevo Precio:</label>
+            <input type="number" name="NUEVO_PRECIO" step="0.01">
+        
+            <div id="modificarContenido" style="display: none;">
+                <label for="NUEVO_CONTENIDO">Nuevo Contenido (solo para bebidas):</label>
+                <input type="text" name="NUEVO_CONTENIDO">
+            </div>
+        
+            <div id="modificarFechaDecad" style="display: none;">
+                <label for="NUEVA_FECHADECAD">Nueva Fecha de Caducidad (solo para bebida y comida):</label>
+                <input type="date" name="NUEVA_FECHADECAD">
+            </div>
+        
+            <div id="modificarNumeroSerie" style="display: none;">
+                <label for="NUEVO_NUMEROSERIE">Nuevo Número de Serie (solo para electrónica y papelería):</label>
+                <input type="text" name="NUEVO_NUMEROSERIE">
+            </div>
+        
+            <label for="NUEVA_EXISTENCIA">Nueva Existencia:</label>
+            <input type="number" name="NUEVA_EXISTENCIA">
+        
+            <button type="submit">Modificar</button>
+        </form>
+        
+
+
+        <!-- Formulario para eliminar productos -->
+        <h2>Eliminar Producto</h2>
+        <form action="eliminar_datos.php" method="post">
+            <label for="CATEGORIA">Selecciona Categoría:</label>
+            <select name="CATEGORIA">
+                <option value="">-- Seleccionar Categoría --</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="comida">Comida</option>
+                <option value="electronica">Electrónica</option>
+                <option value="papeleria">Papelería</option>
+            </select>
+            <label for="ID">ID del Producto:</label>
+            <input type="number" name="ID" required>
+
+            <button type="submit">Eliminar</button>
+        </form>
+    </main>
+    <footer>
+        &copy; 2025 LEGION CHUU SV.
+    </footer>
+</body>
+</html>
