@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Opiniones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .link-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .link-container a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+        }
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Deja tu Opinión</h2>
+        <form action="guardaropiniones.php" method="POST">
+            <label for="NOMBRE">Nombre:</label>
+            <input type="text" id="NOMBRE" name="NOMBRE" required>
+
+            <label for="CORREO">Correo Electrónico:</label>
+            <input type="email" id="CORREO" name="CORREO" required>
+
+            <label for="TELEFONO">Teléfono:</label>
+            <input type="tel" id="TELEFONO" name="TELEFONO" pattern="[0-9]{10}" required>
+
+            <label for="OPINION">Opinión:</label>
+            <textarea id="OPINION" name="OPINION" rows="4" required></textarea>
+
+            <label for="MEJORAS">Cosas por Mejorar:</label>
+            <textarea id="MEJORAS" name="MEJORAS" rows="4" required></textarea>
+
+            <button type="submit">Enviar Opinión</button>
+        </form>
+        <div class="link-container">
+            <a href="paginaprinc.html">Regresar a inicio</a>
+        </div>
+    </div>
+</body>
+</html>
